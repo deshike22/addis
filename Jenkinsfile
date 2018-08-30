@@ -21,5 +21,19 @@ pipeline {
         build 'Build Images'
       }
     }
+    stage('Stage in UAT') {
+      agent {
+        docker {
+          image 'addis'
+        }
+
+      }
+      steps {
+        node(label: 'Create pod') {
+          tool 'kubectl'
+        }
+
+      }
+    }
   }
 }
