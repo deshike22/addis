@@ -10,5 +10,16 @@ pipeline {
         validateDeclarativePipeline 'Jenkinsfile'
       }
     }
+    stage('Build') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile'
+        }
+
+      }
+      steps {
+        build 'Build Images'
+      }
+    }
   }
 }
