@@ -41,7 +41,7 @@ spec:
         git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
         container(name: 'kaniko', shell: '/busybox/sh') {
             sh '''#!/busybox/sh
-            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --destination=https://hub.docker.com/r/bimehta/addis
+            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --destination=https://registry.hub.docker.com/v1/repositories/bimehta/addis/tags
             '''
         }
       }
