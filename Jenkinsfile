@@ -12,6 +12,8 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     imagePullPolicy: Always
+    imagePullSecrets : 
+    - name: regcred
     command:
     - /busybox/cat
     tty: true
