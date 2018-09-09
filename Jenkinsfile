@@ -1,9 +1,16 @@
-pipeline {
-  agent {
-    kubernetes {
-      //cloud 'kubernetes'
-      label 'kaniko'
-      yaml """
+/**
+ * This pipeline will build and deploy a Docker image with Kaniko
+ * https://github.com/GoogleContainerTools/kaniko
+ * without needing a Docker host
+ *
+ * You need to create a jenkins-docker-cfg secret with your docker config
+ * as described in
+ * https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-in-the-cluster-that-holds-your-authorization-token
+ */
+ 
+ def label = "kaniko-${UUID.randomUUID().toString()}"
+ 
+ podTemplate(name: 'kaniko', label: label, yaml: """
 kind: Pod
 metadata:
   name: kaniko
@@ -27,24 +34,17 @@ spec:
           items:
             - key: .dockerconfigjson
               path: .docker/config.json
-
 """
-      }
-    }
-
-  stages {
-    stage('Build with Kaniko') {
-      environment {
-        PATH = "/busybox:$PATH"
-      }
-      steps {
-        git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
-        container(name: 'kaniko', shell: '/busybox/sh') {
-            sh '''#!/busybox/sh
-            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --skip-tls-verify --destination=index.docker.io/bimehta/addis/tags
-            '''
-        }
-      }
-    }
-  }
-}
+  ) {
+ 
+   node(label) {
+     stage('Build with Kaniko') {
+       git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
+       container(name: 'kaniko', shell: '/busybox/sh') {
+           sh '''#!/busybox/sh
+           /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure-skip-tls-verify --destination=index.docker.io:5000/bimehta/addis
+           '''
+       }
+     }
+   }
+ }
