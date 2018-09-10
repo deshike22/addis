@@ -24,16 +24,11 @@ spec:
     tty: true
     volumeMounts:
       - name: jenkins-docker-cfg
-        mountPath: /root
+        mountPath: /root/config.json
   volumes:
   - name: jenkins-docker-cfg
-    projected:
-      sources:
-      - secret:
-          name: regcred
-          items:
-            - key: .dockerconfigjson
-              path: .docker/config.json
+    secret :
+     - name: regcred
 """
   ) {
  
