@@ -10,7 +10,7 @@
 
 def label = "worker-${UUID.randomUUID().toString()}"
 
-podTemplate(name: 'kaniko', label: label, yamlFile: 'kaniko.yaml'
+podTemplate(name: 'kaniko', label: label, yaml: 'kaniko.yaml'
   ) {
 
   node(label) {
