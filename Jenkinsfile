@@ -39,7 +39,7 @@ spec:
 
   node(label) {
     stage('Build with Kaniko') {
-      git branch: 'Development' url: 'https://github.com/bimehta/addis.git'
+      git branch: 'Development', url: 'https://github.com/bimehta/addis.git'
       container(name: 'kaniko', shell: '/busybox/sh') {
         withEnv(['PATH+EXTRA=/busybox']) {
           sh '''#!/busybox/sh
