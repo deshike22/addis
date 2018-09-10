@@ -8,7 +8,7 @@
  * https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-in-the-cluster-that-holds-your-authorization-token
  */
 
-def label = "kaniko-${UUID.randomUUID().toString()}"
+def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(name: 'kaniko', label: label, yaml: """
 kind: Pod
