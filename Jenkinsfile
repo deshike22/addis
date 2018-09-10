@@ -39,7 +39,7 @@ spec:
 
   node(label) {
     stage('Build with Kaniko') {
-      git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
+      git 'https://github.com/deshike22/addis.git'
       container(name: 'kaniko', shell: '/busybox/sh') {
         withEnv(['PATH+EXTRA=/busybox']) {
           sh '''#!/busybox/sh
