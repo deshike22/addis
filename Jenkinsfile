@@ -33,9 +33,32 @@ spec:
           name: regcred
           items:
             - key: .dockerconfigjson
-path: .docker/config.json
+              path: .docker/config.json
 """
-  ) {
+  ) 
+podTemplate(name: 'frontend', label: 'myapp', yaml: """
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: bimehta/addis
+        ports:
+        - containerPort: 80
+"""
+  )
+{
 
   node(label) {
     stage('Build with Kaniko') {
@@ -47,6 +70,9 @@ path: .docker/config.json
           '''
         }
       }
+    }
+    stage('Deploy Container in Dev'){
+      container(name: 'frontend')
     }
   }
 }
