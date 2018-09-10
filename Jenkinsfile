@@ -8,7 +8,7 @@
  * https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-in-the-cluster-that-holds-your-authorization-token
  */
 
-def label = "worker-${UUID.randomUUID().toString()}"
+def label = "kaniko-${UUID.randomUUID().toString()}"
 
 podTemplate(name: 'kaniko', label: label, yaml: """
 kind: Pod
@@ -35,34 +35,11 @@ spec:
             - key: .dockerconfigjson
               path: .docker/config.json
 """
-  ) 
-podTemplate(name: 'frontend', label: 'myapp', yaml: """
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: nginx
-spec:
-  replicas: 3
-  selector:
-    app: nginx
-  template:
-    metadata:
-      name: nginx
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: bimehta/addis
-        ports:
-        - containerPort: 80
-"""
-  )
-{
+  ) {
 
   node(label) {
     stage('Build with Kaniko') {
-      git branch: 'Development', url:'https://github.com/deshike22/addis.git'
+      git 'https://github.com/bimehta/addis.git'
       container(name: 'kaniko', shell: '/busybox/sh') {
         withEnv(['PATH+EXTRA=/busybox']) {
           sh '''#!/busybox/sh
@@ -70,9 +47,6 @@ spec:
           '''
         }
       }
-    }
-    stage('Deploy Container in Dev'){
-      container(name: 'frontend')
     }
   }
 }
