@@ -1,0 +1,18 @@
+kind: Pod
+metadata:
+  name: myapp
+spec:
+  containers:
+  - name: myapp
+    image: bimehta/addis:latest
+    imagePullPolicy: Always
+    resources:
+      limits:
+        cpu: 0.2
+        memory: 128Mi
+      requests:
+        cpu: 0.1
+        memory: 64Mi
+    command:
+    - /bin/sh echo "hello world"
+    tty: true
