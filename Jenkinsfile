@@ -50,7 +50,7 @@ pipeline {
   agent {
     kubernetes {
       label 'kaniko'
-      yaml 'kaniko.yaml'
+      yamlFile 'kaniko.yaml'
 
     }
   }
