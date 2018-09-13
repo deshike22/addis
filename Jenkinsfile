@@ -46,10 +46,12 @@ spec:
   }
 }
 */
+def podlabel = "kaniko-${UUID.randomUUID().toString()}"
+
 pipeline {
   agent {
     kubernetes {
-      label 'kaniko'
+      label podlabel
       yamlFile 'kaniko.yaml'
 
     }
