@@ -53,8 +53,6 @@ pipeline {
     kubernetes {
       label podlabel
       yamlFile 'kaniko.yaml'
-      label myapp
-      yamlFile 'myapp.yaml'
     }
   }
   stages {
