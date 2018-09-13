@@ -55,7 +55,7 @@ pipeline {
     }
   }
   stages {
-    stage ('Build with Kaniko'){
+    stage('Build with Kaniko'){
       steps {
         git branch: 'Development', url: 'https://github.com/deshike22/addis.git'
         container(name: 'kaniko', shell: '/busybox/sh') {
