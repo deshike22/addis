@@ -7,21 +7,21 @@
 def podlabel = "${UUID.randomUUID().toString()}"
 
 pipeline {
-        agent {
+
+  stages {
+    stage('Build with Kaniko'){
+      agent {
         kubernetes {
           label 'kaniko'
           yamlFile 'kaniko.yaml'
         }
       }
-  stages {
-    stage('Build with Kaniko'){
-
       steps {
         git branch: 'Development', url: 'https://github.com/deshike22/addis.git'
         container(name: 'kaniko', shell: '/busybox/sh') {
           withEnv(['PATH+EXTRA=/busybox']) {
             sh '''#!/busybox/sh
-            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --skip-tls-verify --destination=bimehta/addis:latest
+            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure-skip-tls-verify --destination=bimehta/addis:latest
             '''
           }
         }
