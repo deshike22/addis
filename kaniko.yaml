@@ -5,7 +5,7 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: ifNotPresent
+    imagePullPolicy: Always
     resources:
       limits:
         cpu: 0.2
