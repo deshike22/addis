@@ -36,7 +36,7 @@ pipeline {
         }
       }       
       steps {
-        container(name: 'myapp') {
+        container(name: 'myapp',shell:'bin/sh') {
           sh 'echo Hello world!'
         }
       }
