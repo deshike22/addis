@@ -4,7 +4,7 @@ metadata:
 spec:
   containers:
   - name: myapp
-    image: index.docker.io/bimehta/addis
+    image: index.docker.io/v1/bimehta/addis
     imagePullPolicy: Always
     resources:
       limits:
