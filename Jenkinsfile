@@ -49,6 +49,7 @@ spec:
 def podlabel = "kaniko-${UUID.randomUUID().toString()}"
 
 pipeline {
+  
   agent {
     kubernetes {
       label podlabel
@@ -68,10 +69,12 @@ pipeline {
         }
       }
     }
+    podTemplate(label:'myapp',containers:[containerTemplate(image:'bimehta/addis',name:'myapp',command: 'cat', ttyEnabled: true)]){
     stage('Deploy to Development'){
       steps {
         container(name: 'myapp') 
       }
+    }
     }
   }
 }
