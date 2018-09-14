@@ -5,7 +5,7 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: Always
+    imagePullPolicy: ifNotPresent
     resources:
       limits:
         cpu: 0.2
@@ -19,6 +19,19 @@ spec:
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /root
+  - name: myapp
+    image: bimehta/addis:latest
+    imagePullPolicy: Always
+    resources:
+      limits:
+        cpu: 0.05
+        memory: 32Mi
+      requests:
+        cpu: 0.02
+        memory: 16Mi
+    command:
+    - cat
+    tty: true
   volumes:
   - name: jenkins-docker-cfg
     projected:

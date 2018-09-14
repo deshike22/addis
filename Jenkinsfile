@@ -69,12 +69,13 @@ pipeline {
         }
       }
     }
-    podTemplate(label:'myapp',containers:[containerTemplate(image:'bimehta/addis',name:'myapp',command: 'cat', ttyEnabled: true)]){
+
     stage('Deploy to Development'){
       steps {
-        container(name: 'myapp') 
+        container(name: 'myapp') {
+          sh 'echo Hello world!'
+        }
       }
-    }
     }
   }
 }
