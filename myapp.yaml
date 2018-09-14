@@ -4,7 +4,7 @@ metadata:
 spec:
   containers:
   - name: myapp
-    image: bimehta/addis:latest
+    image: bimehta/addis
     imagePullPolicy: Always
     resources:
       limits:
