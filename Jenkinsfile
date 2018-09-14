@@ -8,10 +8,9 @@ def podlabel = "${UUID.randomUUID().toString()}"
 
 pipeline {
 
-  agent any
   stages {
     stage('Build with Kaniko'){
-       agent {
+      agent {
         kubernetes {
           label 'kaniko'
           yamlFile 'kaniko.yaml'
@@ -28,9 +27,9 @@ pipeline {
         }
       }
     }
-
+/*
     stage('Deploy to Development'){
-       agent {
+      agent {
         kubernetes {
           label 'myapp'
           yamlFile 'myapp.yaml'
@@ -41,6 +40,6 @@ pipeline {
           sh 'echo Hello world!'
         }
       }
-    }
+    }*/
   }
 }
