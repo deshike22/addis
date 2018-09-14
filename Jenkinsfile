@@ -27,7 +27,7 @@ pipeline {
         }
       }
     }
-/*
+
     stage('Deploy to Development'){
       agent {
         kubernetes {
@@ -40,6 +40,6 @@ pipeline {
           sh 'echo Hello world!'
         }
       }
-    }*/
+    }
   }
 }
