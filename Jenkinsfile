@@ -10,7 +10,7 @@ pipeline {
   agent any
   stages {
     stage('Build with Kaniko'){
-      agent {
+      agent 'kanko-pod' {
         kubernetes {
           label 'kaniko-'podlabel
           yamlFile 'kaniko.yaml'
@@ -29,7 +29,7 @@ pipeline {
     }
 
     stage('Deploy to Development'){
-      agent {
+      agent 'myapp'{
         kubernetes {
           label 'myapp-'podlabel
           yamlFile 'myapp.yaml'
