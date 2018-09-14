@@ -7,6 +7,7 @@
 def podlabel = "${UUID.randomUUID().toString()}"
 
 pipeline {
+  agent any
   stages {
     stage('Build with Kaniko'){
       agent {
